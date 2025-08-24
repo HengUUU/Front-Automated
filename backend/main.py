@@ -10,7 +10,10 @@ api = FastAPI(title="CSV Cleaner API")
 
 api.add_middleware(
     CORSMiddleware,
-    allow_origins=["http://localhost:5173"],  # Change "*" to your frontend URL in production
+    allow_origins=[
+        "http://localhost:3000",
+        "http://frontend:3000",
+                   ],  
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
