@@ -1,13 +1,15 @@
 from fastapi import APIRouter, Query
 from app.models.data_schema import EntryResponseData
-from app.services.read_data_sensor import SensorDataPreprocess
+from app.services.read_data_sensor import SensorDataPreprocess, RequestSensor
 from app.services.entry_service import fetch_api_data
 from dotenv import load_dotenv
 import os
 from typing import Optional
 from app.services.sensor_service import calculate_average_metrics
-from app.services.read_data_factory import read_nested_data_fac, get_factory_infor
+from app.services.read_data_factory import read_nested_data_fac, nested_data_factory ,get_factory_infor
 from typing import List, Dict, Any
+from app.services.token_service import check_valid_token, check_login
+from datetime import timedelta, datetime, timezone
 
 # Load environment variables from .env file
 load_dotenv()
@@ -55,10 +57,6 @@ async def get_report_by_device_and_date(date: Optional[str] = None):
     # get station information
     station_ = (get_factory_infor(deviceId,station_data))
 
-    
-
-
-
     single_factory_rp = {
 
             "avg_parame": avg_param,
@@ -72,6 +70,70 @@ async def get_report_by_device_and_date(date: Optional[str] = None):
     # Return the entire list of reports
     return {"data": all_reports,
             "total_factories": len(all_reports),}
+
+
+@router.get("/token-request")
+async def token_request(token: str):
+    result = check_valid_token(token=token)
+    return result    
+
+@router.get("/token-test")
+async def token_request(token: str):
+    result = check_login(token)
+    return result   
+
+
+@router.get("/report")
+async def get_reports(token:str):
+
+    # Calculate yesterday's start and end (UTC)
+    yesterday_str = (datetime.now(timezone.utc) - timedelta(days=1)).date().isoformat()
+    
+
+
+    result = check_valid_token(token)
+    if result["status"] != "success":
+        return result
+
+    all_reports: List[Dict[str, Any]] = []
+
+
+    # read station data
+    station_data = nested_data_factory(result["data"])
+
+
+    # read sensor data
+    sensor_data = RequestSensor(token)
+
+    for ind in station_data:
+        for i in ind['factory']:
+            fc_dt = sensor_data._read_and_process_data(i['deviceId'])
+
+            if fc_dt.empty:
+                continue
+
+
+
+            # find average parameters
+            avg_param = calculate_average_metrics(fc_dt)
+
+            # get station information
+            station_ = (get_factory_infor(i['deviceId'],station_data))
+
+            single_factory_rp = {
+
+                    "avg_parame": avg_param,
+                    "date": yesterday_str,
+                    "device_ids": i['deviceId'],
+                    "station_info": station_,
+                
+            }
+            all_reports.append(single_factory_rp)
+        
+    # Return the entire list of reports
+    return {"data": all_reports,
+            "total_factories": len(all_reports),}
+
 
 
 

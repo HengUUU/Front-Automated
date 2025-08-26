@@ -35,6 +35,27 @@ def read_nested_data_fac(file_path: str) -> pd.DataFrame:
         return pd.DataFrame()
     
 
+def nested_data_factory(data_dict: json) -> pd.DataFrame:
+    data = data_dict['data']['children']
+
+    dic_key = []
+
+    for prov in data:
+            # print(prov)
+        factory = []
+        for child in prov['children']:
+            factory.append({"deviceId":child['code'], 
+                            "Company":child['name'], 
+                            "Type":child['type']})
+
+            
+        dic_key.append({"province": prov['name'], "province_total": prov['total'],"factory": factory}
+)
+        
+    return dic_key
+        
+    
+
 def get_factory_infor(device_id:str, all_station_data):
     
     for province in all_station_data:
