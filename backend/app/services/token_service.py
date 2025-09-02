@@ -2,7 +2,7 @@ import requests
 import dns.resolver
 import json
 
-def check_valid_token(token: str) -> bool:
+def check_valid_token(token: str) -> dict:
 
 
     try:
@@ -19,7 +19,7 @@ def check_valid_token(token: str) -> bool:
         headers = {
         "Accept": "application/json",
         "Accept-Language": "en-US,en;q=0.9",
-        "Authorization": "Bearer p7tenqeqj3d6r39heu9eptees0p9pdvd",
+        f"Authorization": f"Bearer {token}",
         "X-Api-Key": "1ccbc4c913bc4ce785a0a2de444aa0d6",
         "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/139.0.0.0 Safari/537.36",
         "Host": "wpms.moe.gov.kh"  # Important!
@@ -30,15 +30,20 @@ def check_valid_token(token: str) -> bool:
 
         if response.status_code == 200:
             return {"status": "success", "message": "Token is valid", "data": response.json()}
+            
+        
         elif response.status_code == 401:
             return {"status": "error", "message": "Invalid token"}
         else:
             return {"status": "error", "message": f"Unexpected response: {response.status_code}"}
         
+    
+        
     except dns.resolver.NXDOMAIN:
         return {"status": "error", "message": "Domain not found"}
     except requests.exceptions.RequestException as e:
         return {"status": "error", "message": f"Request failed: {str(e)}"}
+    
     
 def check_login(str):
     if str == "123":
