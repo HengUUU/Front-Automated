@@ -42,10 +42,32 @@ class RequestSensor:
     
         self.token = token
 
+    
+    def _remove_outliers_iqr(self, df: pd.DataFrame, columns=None) -> pd.DataFrame:
+            """
+            Removes outliers from the dataframe using the IQR method.
+            """
+            if df.empty:
+                return df
+
+            if columns is None:
+                columns = df.select_dtypes(include="number").columns.tolist()
+
+            df_clean = df.copy()
+            for col in columns:
+                Q1 = df_clean[col].quantile(0.25)
+                Q3 = df_clean[col].quantile(0.75)
+                IQR = Q3 - Q1
+                lower_bound = Q1 - 1.5 * IQR
+                upper_bound = Q3 + 1.5 * IQR
+                df_clean = df_clean[(df_clean[col] >= lower_bound) & (df_clean[col] <= upper_bound)]
+            
+            return df_clean.reset_index(drop=True)
+
 
     def _read_and_process_data(self,deviceId:str) -> pd.DataFrame:
 
-        empty_df = pd.DataFrame(columns=["monitorDate", "ph", "cod", "tss", "temp", "waterFlow"])
+        empty_df = pd.DataFrame(columns=["monitorDate", "ph", "cod", "ss", "temp", "waterFlow"])
         
         try:
 
@@ -53,6 +75,7 @@ class RequestSensor:
 
             # Calculate yesterday's start and end (UTC)
             yesterday = now - timedelta(days=1)
+            yesterday_date = yesterday.date()  # just the date part
             # Start of yesterday
             from_date = yesterday.replace(hour=0, minute=0, second=0, microsecond=0)
             # End of yesterday
@@ -93,12 +116,19 @@ class RequestSensor:
             if "data" in data and isinstance(data["data"], list):
                 df = pd.DataFrame(data["data"])
                 df['monitorDate'] = pd.to_datetime(df['monitorDate'])
+
+                df = df[df['monitorDate'].dt.date == yesterday_date]
+                
+                df = self._remove_outliers_iqr(df, columns=["ph", "cod", "ss"])
+
                 return df
             else:
                 return empty_df
         except Exception as e:
             print(f"Error loading sensor data: {e}")
             return empty_df
+        
+
 
         
     # def filter_by_date(self, date: str) -> pd.DataFrame:
