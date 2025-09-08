@@ -9,8 +9,9 @@ from app.services.sensor_service import calculate_average_metrics
 from app.services.read_data_factory import read_nested_data_fac, nested_data_factory ,get_factory_infor
 from typing import List, Dict, Any
 from app.services.token_service import check_valid_token, check_login
-from datetime import timedelta, datetime, timezone
+from datetime import timedelta, datetime, timezone, date
 from token_store import token_memory, get_token, set_token
+
 
 # Load environment variables from .env file
 load_dotenv()
@@ -85,11 +86,6 @@ async def token_request(token: str):
 
     return result   
 
-@router.get("/token-test")
-async def token_request(token: str):
-    result = check_login(token)
-    return result   
-
 
 @router.get("/report")
 async def get_reports():
@@ -97,27 +93,19 @@ async def get_reports():
     token = get_token()
 
     # Calculate yesterday's start and end (UTC)
-    yesterday_str = (datetime.now(timezone.utc) - timedelta(days=1)).date().isoformat()
+    today_str = date.today()
     # print(yesterday_str)
     
 
 
     result = check_valid_token(token)
     if result["status"] != "success":
-        # print("Station data length:")
         return result
 
     all_reports: List[Dict[str, Any]] = []
-
-
     # read station data
     station_data = nested_data_factory(result["data"])
     
-    # print(station_data)
-
-
-
-
     # read sensor data
     sensor_data = RequestSensor(token)
     num = 0
@@ -145,12 +133,11 @@ async def get_reports():
 
             # get station information
             station_ = (get_factory_infor(i['deviceId'],station_data))
-            # print(len(station_))
 
             single_factory_rp = {
 
                     "avg_parame": avg_param,
-                    "date": yesterday_str,
+                    "date": today_str,
                     "device_ids": i['deviceId'],
                     "station_info": station_,
                 
