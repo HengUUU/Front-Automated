@@ -3,6 +3,7 @@ import json
 import dns.resolver
 import requests
 from datetime import datetime, timedelta, timezone
+from datetime import date
 
 class SensorDataPreprocess:
     def __init__(self, file_path: str):
@@ -54,13 +55,17 @@ class RequestSensor:
                 columns = df.select_dtypes(include="number").columns.tolist()
 
             df_clean = df.copy()
-            for col in columns:
-                Q1 = df_clean[col].quantile(0.25)
-                Q3 = df_clean[col].quantile(0.75)
-                IQR = Q3 - Q1
-                lower_bound = Q1 - 1.5 * IQR
-                upper_bound = Q3 + 1.5 * IQR
-                df_clean = df_clean[(df_clean[col] >= lower_bound) & (df_clean[col] <= upper_bound)]
+            
+                # Apply threshold checks
+            if 'ph' in df_clean.columns:
+                df_clean = df_clean[(df_clean['ph'] >= 0) & (df_clean['ph'] <= 14)]
+
+            if 'cod' in df_clean.columns:
+                df_clean = df_clean[df_clean['cod'] > 0]
+
+            # Assuming the column name for suspended solids is 'SS' or 'TSS'
+            if 'ss' in df_clean.columns:
+                df_clean = df_clean[df_clean['ss'] > 0]
             
             return df_clean.reset_index(drop=True)
 
@@ -71,15 +76,16 @@ class RequestSensor:
         
         try:
 
-            now = datetime.now(timezone.utc)
+            today = date.today()
 
-            # Calculate yesterday's start and end (UTC)
-            yesterday = now - timedelta(days=1)
-            yesterday_date = yesterday.date()  # just the date part
-            # Start of yesterday
-            from_date = yesterday.replace(hour=0, minute=0, second=0, microsecond=0)
-            # End of yesterday
-            to_date = yesterday.replace(hour=23, minute=59, second=59, microsecond=0)
+            # Yesterday’s date
+            # yesterday = today - timedelta(days=1)
+
+            # Start of yesterday (00:00:00)
+            from_date = datetime.combine(today, datetime.min.time())
+
+            # End of yesterday (23:59:59)
+            to_date = datetime.combine(today, datetime.max.time()).replace(microsecond=0)
 
             # Convert to ISO 8601 with milliseconds as .000Z
             from_date_str = from_date.strftime("%Y-%m-%dT%H:%M:%S.000Z")
@@ -117,7 +123,7 @@ class RequestSensor:
                 df = pd.DataFrame(data["data"])
                 df['monitorDate'] = pd.to_datetime(df['monitorDate'])
 
-                df = df[df['monitorDate'].dt.date == yesterday_date]
+                df = df[df['monitorDate'].dt.date == today]
                 
                 df = self._remove_outliers_iqr(df, columns=["ph", "cod", "ss"])
 
