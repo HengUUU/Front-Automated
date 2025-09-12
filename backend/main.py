@@ -10,12 +10,13 @@ api = FastAPI(title="Automated Poster")
 
 api.add_middleware(
     CORSMiddleware,
-    allow_origins=[
-        "http://localhost:3000",
-        "http://frontend:3000",
-        "https://65j8kfdv-3000.asse.devtunnels.ms",
-        "http://127.0.0.1:3000"
-                   ],  
+    allow_origins=["*"],
+    # allow_origins=[
+    #     "http://localhost:3000",
+    #     "http://frontend:3000",
+    #     "https://65j8kfdv-3000.asse.devtunnels.ms",
+    #     "http://127.0.0.1:3000"
+    #                ],  
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
