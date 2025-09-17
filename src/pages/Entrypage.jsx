@@ -3,6 +3,7 @@ import GreenBar from "../component/GreenBar";
 import { useNavigate } from "react-router-dom";
 
 
+
 // A simple Modal component for the pop-up message.
 const Modal = ({ message, onClose }) => {
   return (
@@ -22,6 +23,7 @@ const Modal = ({ message, onClose }) => {
 };
 
 export default function EntryPlatform() {
+  const apiUrl = import.meta.env.VITE_API_URL;
   const [formData, setFormData] = useState({
     token: "",
   });
@@ -44,7 +46,7 @@ export default function EntryPlatform() {
 const handleSubmit = async (e) => {
   e.preventDefault();
 
-  const backendUrl = `http://localhost:8000/token-request?token=${formData.token}`; 
+  const backendUrl = `${apiUrl}/token-request?token=${formData.token}`; 
 
 
 

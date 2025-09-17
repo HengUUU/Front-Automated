@@ -1,6 +1,7 @@
 import React, { createContext, useContext, useEffect, useState } from "react";
 import factoriesKh from "../utils/real_factory_info.json";
 
+
 const FactoryDataContext = createContext();
 
 export function useFactoryData() {
@@ -10,9 +11,10 @@ export function useFactoryData() {
 export function FactoryDataProvider({ children }) {
   const [data, setData] = useState([]);
   const [loading, setLoading] = useState(true);
+  const apiUrl = import.meta.env.VITE_API_URL;
   
   useEffect(() => {
-    fetch("http://127.0.0.1:8000/report")
+    fetch(`${apiUrl}/report`)
     //fetch("https://65j8kfdv-3000.asse.devtunnels.ms/report")
       .then(res => res.json())
       .then(json => {
