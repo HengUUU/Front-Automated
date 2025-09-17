@@ -1,0 +1,9 @@
+# ===== Frontend =====
+frontend/venvfront/
+frontend/README.md
+node_modules
+# ===== Backend =====
+backend/venvback/
+backend/.env
+
+

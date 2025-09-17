@@ -1,0 +1,677 @@
+{
+    "data": [
+        {
+            "avg_parame": {
+                "ph": 7.4424673851389676,
+                "ss": 10.439591605218379,
+                "cod": 17.351043675553033,
+                "waterFlow": -1.0,
+                "temperature": 30.59757799205899
+            },
+            "date": "2025-09-03",
+            "device_ids": "E4:65:B8:29:76:58",
+            "station_info": {
+                "Province": "SVAY RIENG",
+                "Company": "Manhattan International Co. Ltd.",
+                "Type": "Department"
+            }
+        },
+        {
+            "avg_parame": {
+                "ph": 10.019455275229358,
+                "ss": 31.099483944954127,
+                "cod": 0.0,
+                "waterFlow": -1.0,
+                "temperature": 36.35167431192661
+            },
+            "date": "2025-09-03",
+            "device_ids": "E4:65:B8:29:58:04",
+            "station_info": {
+                "Province": "SVAY RIENG",
+                "Company": "TOP SPORTS TEXTILE LTD",
+                "Type": "Department"
+            }
+        },
+        {
+            "avg_parame": {
+                "ph": 2.2477081192189106,
+                "ss": 2.6448252826310377,
+                "cod": 41.353432682425485,
+                "waterFlow": -1.0,
+                "temperature": 9.723751284686536
+            },
+            "date": "2025-09-03",
+            "device_ids": "AC:15:18:ED:F7:20",
+            "station_info": {
+                "Province": "SVAY RIENG",
+                "Company": "GIGA(Svay Riang) Spacial Economic Zone",
+                "Type": "Department"
+            }
+        },
+        {
+            "avg_parame": {
+                "ph": null,
+                "cod": null,
+                "ss": null,
+                "waterFlow": null,
+                "temperature": null
+            },
+            "date": "2025-09-03",
+            "device_ids": "AC:15:18:EF:64:D4",
+            "station_info": {
+                "Province": "SVAY RIENG",
+                "Company": "SANDONG SUNSHELL INTERNATIONAL (CAMBODIA) Co.,ltd",
+                "Type": "Department"
+            }
+        },
+        {
+            "avg_parame": {
+                "ph": 7.116891233766234,
+                "ss": 3.1207873376623376,
+                "cod": 80.43188311688311,
+                "waterFlow": -1.0,
+                "temperature": 31.033303571428572
+            },
+            "date": "2025-09-03",
+            "device_ids": "8C:BF:EA:09:E4:10",
+            "station_info": {
+                "Province": "SVAY RIENG",
+                "Company": "CALIFOR",
+                "Type": "Department"
+            }
+        },
+        {
+            "avg_parame": {
+                "ph": 7.295425158116655,
+                "ss": 4.417378777231202,
+                "cod": 15.284279690794095,
+                "waterFlow": -1.0,
+                "temperature": 28.740056219255095
+            },
+            "date": "2025-09-03",
+            "device_ids": "94:A9:90:07:8D:E4",
+            "station_info": {
+                "Province": "SVAY RIENG",
+                "Company": "RMKH GLOVE (CAMBODIA) CO., LTD.",
+                "Type": "Department"
+            }
+        },
+        {
+            "avg_parame": {
+                "ph": 7.44987747957993,
+                "ss": 7.712462077012836,
+                "cod": 11.73809218203034,
+                "waterFlow": -1.0,
+                "temperature": 29.53855309218203
+            },
+            "date": "2025-09-03",
+            "device_ids": "E4:65:B8:2A:56:28",
+            "station_info": {
+                "Province": "BATTAMBANG",
+                "Company": "PHOENIX INDUSTRIAL CO., LTD.",
+                "Type": "Department"
+            }
+        },
+        {
+            "avg_parame": {
+                "ph": 8.39187432286024,
+                "ss": 5.129057421451788,
+                "cod": 0.0,
+                "waterFlow": -1.0,
+                "temperature": 27.632264355362945
+            },
+            "date": "2025-09-03",
+            "device_ids": "28:2D:06:0E:A3:B6",
+            "station_info": {
+                "Province": "BATTAMBANG",
+                "Company": "YOUPIN FARM (CAMBODIA) FOOD CO., LTD.",
+                "Type": "Department"
+            }
+        },
+        {
+            "avg_parame": {
+                "ph": 6.236958438287153,
+                "ss": 45.88025818639799,
+                "cod": 35.70169395465995,
+                "waterFlow": -1.0,
+                "temperature": 30.576007556675062
+            },
+            "date": "2025-09-03",
+            "device_ids": "E4:65:B8:2B:0B:8C",
+            "station_info": {
+                "Province": "PHNOM PENH",
+                "Company": "Hi BLUE ECO WASHING PROCESS.,LTD",
+                "Type": "Department"
+            }
+        },
+        {
+            "avg_parame": {
+                "ph": 7.157974137931035,
+                "ss": 5.5363854679802955,
+                "cod": 38.682826354679804,
+                "waterFlow": -1.0,
+                "temperature": 30.001360837438423
+            },
+            "date": "2025-09-03",
+            "device_ids": "E4:65:B8:2A:5B:FC",
+            "station_info": {
+                "Province": "PHNOM PENH",
+                "Company": "KHMER BEVERAGES",
+                "Type": "Department"
+            }
+        },
+        {
+            "avg_parame": {
+                "ph": 8.362304574406485,
+                "ss": 6.016873190503763,
+                "cod": 38.344342790967,
+                "waterFlow": -1.0,
+                "temperature": 28.933572669368846
+            },
+            "date": "2025-09-03",
+            "device_ids": "AC:15:18:EF:EC:20",
+            "station_info": {
+                "Province": "PHNOM PENH",
+                "Company": "Tak Sun Enterprises",
+                "Type": "Department"
+            }
+        },
+        {
+            "avg_parame": {
+                "ph": 6.9198103266596425,
+                "ss": 12.550611169652266,
+                "cod": 80.47578503688092,
+                "waterFlow": -1.0,
+                "temperature": 32.25194415173867
+            },
+            "date": "2025-09-03",
+            "device_ids": "AC:15:18:ED:FB:B0",
+            "station_info": {
+                "Province": "PHNOM PENH",
+                "Company": "YEE WO (CAMBODIA) GARMENT & WASHING CO., LTD",
+                "Type": "Department"
+            }
+        },
+        {
+            "avg_parame": {
+                "ph": 7.110260452364632,
+                "ss": 42.599417409184376,
+                "cod": 95.86411925976697,
+                "waterFlow": -1.0,
+                "temperature": 30.666696367374914
+            },
+            "date": "2025-09-03",
+            "device_ids": "94:A9:90:07:8D:50",
+            "station_info": {
+                "Province": "PHNOM PENH",
+                "Company": "ZHENG YONG GARMENT FACTORY CO., LTD.",
+                "Type": "Department"
+            }
+        },
+        {
+            "avg_parame": {
+                "ph": null,
+                "cod": null,
+                "ss": null,
+                "waterFlow": null,
+                "temperature": null
+            },
+            "date": "2025-09-03",
+            "device_ids": "94:A9:90:07:8D:88",
+            "station_info": {
+                "Province": "PHNOM PENH",
+                "Company": "HEINEKEN (CAMBODIA) CO., LTD.",
+                "Type": "Department"
+            }
+        },
+        {
+            "avg_parame": {
+                "ph": null,
+                "cod": null,
+                "ss": null,
+                "waterFlow": null,
+                "temperature": null
+            },
+            "date": "2025-09-03",
+            "device_ids": "94:A9:90:1E:55:08",
+            "station_info": {
+                "Province": "PHNOM PENH",
+                "Company": "Ganzberg beer-RusseyKeo",
+                "Type": "Department"
+            }
+        },
+        {
+            "avg_parame": {
+                "ph": null,
+                "cod": null,
+                "ss": null,
+                "waterFlow": null,
+                "temperature": null
+            },
+            "date": "2025-09-03",
+            "device_ids": "28:2D:06:0E:A3:62",
+            "station_info": {
+                "Province": "PHNOM PENH",
+                "Company": "OCEAN APPAREL MANUFACTURING CO., LTD",
+                "Type": "Department"
+            }
+        },
+        {
+            "avg_parame": {
+                "ph": 6.221130386121992,
+                "ss": 23.374661443760495,
+                "cod": 39.179210968102964,
+                "waterFlow": -1.0,
+                "temperature": 27.413161723559032
+            },
+            "date": "2025-09-03",
+            "device_ids": "E4:65:B8:29:DB:D8",
+            "station_info": {
+                "Province": "KANDAL",
+                "Company": "Meng Yan Garment Manufactory & Wet Processing LTD",
+                "Type": "Department"
+            }
+        },
+        {
+            "avg_parame": {
+                "ph": 6.366509324009324,
+                "ss": 243.66870629370626,
+                "cod": 235.60916666666668,
+                "waterFlow": -1.0,
+                "temperature": 31.58111888111888
+            },
+            "date": "2025-09-03",
+            "device_ids": "AC:15:18:EE:5A:24",
+            "station_info": {
+                "Province": "KANDAL",
+                "Company": "JCW",
+                "Type": "Department"
+            }
+        },
+        {
+            "avg_parame": {
+                "ph": 6.94918315252074,
+                "ss": 24.26474154435227,
+                "cod": 122.92740268028079,
+                "waterFlow": -1.0,
+                "temperature": 33.75239310784939
+            },
+            "date": "2025-09-03",
+            "device_ids": "AC:15:18:EE:0C:B0",
+            "station_info": {
+                "Province": "KANDAL",
+                "Company": "YI DA MANUFACTURER Co.,LTD",
+                "Type": "Department"
+            }
+        },
+        {
+            "avg_parame": {
+                "ph": 7.553853890947591,
+                "ss": 8.685352038115406,
+                "cod": 12.286262572789836,
+                "waterFlow": -1.0,
+                "temperature": 28.92791953414505
+            },
+            "date": "2025-09-03",
+            "device_ids": "E4:65:B8:29:D5:E0",
+            "station_info": {
+                "Province": "KANDAL",
+                "Company": "Yee Tak Lee",
+                "Type": "Department"
+            }
+        },
+        {
+            "avg_parame": {
+                "ph": 7.3865325248070555,
+                "ss": 18.280815876515987,
+                "cod": 39.57699007717751,
+                "waterFlow": -1.0,
+                "temperature": 32.74496692392503
+            },
+            "date": "2025-09-03",
+            "device_ids": "8C:BF:EA:09:E3:E0",
+            "station_info": {
+                "Province": "KANDAL",
+                "Company": "SHENGXING ZHONGGUO PHNOM PENH PACKAGING CO., LTD",
+                "Type": "Department"
+            }
+        },
+        {
+            "avg_parame": {
+                "ph": 6.850437317784256,
+                "ss": 172.09301020408165,
+                "cod": 2.243804664723032,
+                "waterFlow": -1.0,
+                "temperature": 28.05613702623907
+            },
+            "date": "2025-09-03",
+            "device_ids": "8C:BF:EA:09:E4:64",
+            "station_info": {
+                "Province": "KANDAL",
+                "Company": "Goldfame Star Factory (Cambodia) Company Limited",
+                "Type": "Department"
+            }
+        },
+        {
+            "avg_parame": {
+                "ph": 7.103816884661118,
+                "ss": 58.635683709869205,
+                "cod": 23.457372175980975,
+                "waterFlow": -1.0,
+                "temperature": 33.48151605231867
+            },
+            "date": "2025-09-03",
+            "device_ids": "8C:BF:EA:09:E3:D8",
+            "station_info": {
+                "Province": "KANDAL",
+                "Company": "Nagapeace Corporation Limited",
+                "Type": "Department"
+            }
+        },
+        {
+            "avg_parame": {
+                "ph": 6.8400000000000025,
+                "ss": 10.943439767779392,
+                "cod": 36.62478229317852,
+                "waterFlow": -1.0,
+                "temperature": 28.938461538461542
+            },
+            "date": "2025-09-03",
+            "device_ids": "94:A9:90:07:8D:80",
+            "station_info": {
+                "Province": "KANDAL",
+                "Company": "TAINAN",
+                "Type": "Department"
+            }
+        },
+        {
+            "avg_parame": {
+                "ph": 7.54030303030303,
+                "ss": 3.4187878787878785,
+                "cod": 49.8609090909091,
+                "waterFlow": -1.0,
+                "temperature": 28.825151515151514
+            },
+            "date": "2025-09-03",
+            "device_ids": "28:2D:06:0E:A2:76",
+            "station_info": {
+                "Province": "KANDAL",
+                "Company": "KICYN (CAMBODIA) CO., LTD.",
+                "Type": "Department"
+            }
+        },
+        {
+            "avg_parame": {
+                "ph": 7.14756838905775,
+                "ss": 32.25469604863222,
+                "cod": 165.10808510638296,
+                "waterFlow": -1.0,
+                "temperature": 31.424782168186425
+            },
+            "date": "2025-09-03",
+            "device_ids": "28:2D:06:0E:34:5C",
+            "station_info": {
+                "Province": "KANDAL",
+                "Company": "WIN TA GARMENT & FINISHING CO., LTD.",
+                "Type": "Department"
+            }
+        },
+        {
+            "avg_parame": {
+                "ph": 7.160327689787002,
+                "ss": 3.7678645548880394,
+                "cod": 93.25085745494266,
+                "waterFlow": -1.0,
+                "temperature": 29.183326051338067
+            },
+            "date": "2025-09-03",
+            "device_ids": "28:2D:06:0E:39:92",
+            "station_info": {
+                "Province": "KANDAL",
+                "Company": "WINSAND GARMENT & WOOLEN KNITTING FACTORY CO., LTD.",
+                "Type": "Department"
+            }
+        },
+        {
+            "avg_parame": {
+                "ph": 7.245323464912281,
+                "ss": 25.109736842105264,
+                "cod": 18.58390899122807,
+                "waterFlow": -1.0,
+                "temperature": 28.01891995614035
+            },
+            "date": "2025-09-03",
+            "device_ids": "94:A9:90:1E:55:6C",
+            "station_info": {
+                "Province": "KANDAL",
+                "Company": "Peng Da Garment",
+                "Type": "Department"
+            }
+        },
+        {
+            "avg_parame": {
+                "ph": 7.336619565217392,
+                "ss": 24.914445652173914,
+                "cod": 56.27444565217391,
+                "waterFlow": -1.0,
+                "temperature": 31.378423913043477
+            },
+            "date": "2025-09-03",
+            "device_ids": "8C:BF:EA:09:E4:2C",
+            "station_info": {
+                "Province": "KAMPONG CHHNANG",
+                "Company": "Super Link Fashions (Cambodia) Co .,Ltd",
+                "Type": "Department"
+            }
+        },
+        {
+            "avg_parame": {
+                "ph": 7.982749262536874,
+                "ss": 9.637923303834809,
+                "cod": 9.961398230088495,
+                "waterFlow": -1.0,
+                "temperature": 29.57381120943953
+            },
+            "date": "2025-09-03",
+            "device_ids": "C8:2E:18:91:CF:A0",
+            "station_info": {
+                "Province": "PREAK SIHANOUK",
+                "Company": "CHIN HUAY (CAMBODIA) CO., LTD.",
+                "Type": "Department"
+            }
+        },
+        {
+            "avg_parame": {
+                "ph": 7.060940623162844,
+                "ss": 3.126925338036449,
+                "cod": 24.590146972369194,
+                "waterFlow": -1.0,
+                "temperature": 30.15037037037037
+            },
+            "date": "2025-09-03",
+            "device_ids": "8C:BF:EA:0A:67:9C",
+            "station_info": {
+                "Province": "PREAK SIHANOUK",
+                "Company": "CAMBREW",
+                "Type": "Department"
+            }
+        },
+        {
+            "avg_parame": {
+                "ph": 6.697707165109034,
+                "ss": 3.6385732087227414,
+                "cod": 16.89351401869159,
+                "waterFlow": -1.0,
+                "temperature": 28.75042367601246
+            },
+            "date": "2025-09-03",
+            "device_ids": "8C:BF:EA:09:E4:50",
+            "station_info": {
+                "Province": "PREAK SIHANOUK",
+                "Company": "Sihanoukville Special Economic Zone",
+                "Type": "Department"
+            }
+        },
+        {
+            "avg_parame": {
+                "ph": 9.362874282733436,
+                "ss": 5.233166405842462,
+                "cod": 15.532258737610851,
+                "waterFlow": -1.0,
+                "temperature": 28.207819509650495
+            },
+            "date": "2025-09-03",
+            "device_ids": "94:A9:90:07:8D:A8",
+            "station_info": {
+                "Province": "PREAK SIHANOUK",
+                "Company": "Zhejiang Special Economic Zone",
+                "Type": "Department"
+            }
+        },
+        {
+            "avg_parame": {
+                "ph": 0.0,
+                "ss": 0.0,
+                "cod": 0.0,
+                "waterFlow": -1.0,
+                "temperature": 0.0
+            },
+            "date": "2025-09-03",
+            "device_ids": "28:2D:06:0A:63:54",
+            "station_info": {
+                "Province": "PREAK SIHANOUK",
+                "Company": "GUOWANG STATE (CAMBODIA) FOOD CO., LTD.",
+                "Type": "Department"
+            }
+        },
+        {
+            "avg_parame": {
+                "ph": 7.4886228936664745,
+                "ss": 3.7847937245787335,
+                "cod": 80.59509587449158,
+                "waterFlow": -1.0,
+                "temperature": 33.80416618245206
+            },
+            "date": "2025-09-03",
+            "device_ids": "8C:BF:EA:0A:68:68",
+            "station_info": {
+                "Province": "KOMPONG SPEU",
+                "Company": "JIN LU YUAN ENERGY ENVIRONMENT INDUSTRIAL.,LTD",
+                "Type": "Department"
+            }
+        },
+        {
+            "avg_parame": {
+                "ph": 7.144665605095542,
+                "ss": 95.10289278131636,
+                "cod": 15.402967091295118,
+                "waterFlow": -1.0,
+                "temperature": 36.907696390658174
+            },
+            "date": "2025-09-03",
+            "device_ids": "8C:BF:EA:0A:6C:C8",
+            "station_info": {
+                "Province": "KOMPONG SPEU",
+                "Company": "Cambodian Gome Farm Food Co.,Ltd",
+                "Type": "Department"
+            }
+        },
+        {
+            "avg_parame": {
+                "ph": 6.292771739130435,
+                "ss": 22.93391847826087,
+                "cod": 35.24674456521739,
+                "waterFlow": -1.0,
+                "temperature": 30.76392391304348
+            },
+            "date": "2025-09-03",
+            "device_ids": "94:A9:90:07:8D:7C",
+            "station_info": {
+                "Province": "KOMPONG SPEU",
+                "Company": "Trim ax-Global",
+                "Type": "Department"
+            }
+        },
+        {
+            "avg_parame": {
+                "ph": null,
+                "cod": null,
+                "ss": null,
+                "waterFlow": null,
+                "temperature": null
+            },
+            "date": "2025-09-03",
+            "device_ids": "94:A9:90:07:8D:78",
+            "station_info": {
+                "Province": "KOMPONG SPEU",
+                "Company": "kirirom food",
+                "Type": "Department"
+            }
+        },
+        {
+            "avg_parame": {
+                "ph": 6.9578916827853,
+                "ss": 2.213882978723404,
+                "cod": 14.688607350096712,
+                "waterFlow": -1.0,
+                "temperature": 28.98374274661509
+            },
+            "date": "2025-09-03",
+            "device_ids": "94:A9:90:07:8D:C8",
+            "station_info": {
+                "Province": "KOMPONG SPEU",
+                "Company": "BAOSTEEL",
+                "Type": "Department"
+            }
+        },
+        {
+            "avg_parame": {
+                "ph": 7.327342295760082,
+                "ss": 7.073888314374353,
+                "cod": 52.78626680455016,
+                "waterFlow": -1.0,
+                "temperature": 34.81110134436402
+            },
+            "date": "2025-09-03",
+            "device_ids": "8C:BF:EA:09:E3:D0",
+            "station_info": {
+                "Province": "KOMPONG SPEU",
+                "Company": "Cambodian Gome Farm Food Co.,Ltd 2",
+                "Type": "Department"
+            }
+        },
+        {
+            "avg_parame": {
+                "ph": null,
+                "cod": null,
+                "ss": null,
+                "waterFlow": null,
+                "temperature": null
+            },
+            "date": "2025-09-03",
+            "device_ids": "44:1D:64:E3:ED:00",
+            "station_info": {
+                "Province": "KOMPONG SPEU",
+                "Company": "ZHONGBAO (CAMBODIA) FOOD SCIENCE & TECHNOLOGY CO., LTD.",
+                "Type": "Department"
+            }
+        },
+        {
+            "avg_parame": {
+                "ph": null,
+                "cod": null,
+                "ss": null,
+                "waterFlow": null,
+                "temperature": null
+            },
+            "date": "2025-09-03",
+            "device_ids": "8C:BF:EA:0A:68:28",
+            "station_info": {
+                "Province": "KRATIE",
+                "Company": "SING SONG Industrial (Cambodia) Co,.Ltd",
+                "Type": "Department"
+            }
+        }
+    ],
+    "total_factories": 42
+}
