@@ -4,12 +4,14 @@ import React from "react";
 import { useFactoryData } from "../context/FactoryDataContext";
 import GreenLoadingBar from "../component/GreenLoading";
 import ParamChart from "../component/ParamChart";
+import HeatmapChart from "../component/HeatMap";
+
 
 export default function Plot() {
   const { data, loading } = useFactoryData();
-
+  
   if (loading) return <GreenLoadingBar />;
-
+   console.log("plot", data)
   // helper to get top 10
   const getTop10 = (key) =>
     data
@@ -51,6 +53,19 @@ export default function Plot() {
               color="rgba(54, 162, 235, 0.6)"
             />
           </div>
+          {/* Heatmap below the charts */}
+            <div className="mt-10 bg-white rounded-2xl shadow-lg p-6 border border-gray-200">
+              <h2 className="text-lg font-bold text-gray-800 mb-3 text-center">
+                Water Quality Heatmap (sorted by WCI)
+              </h2>
+              {/* Centering wrapper */}
+              <div className="flex justify-center items-center">
+                <div className="w-[350px] h-[250px]">
+                  <HeatmapChart report={{ data }} />
+                  
+                </div>
+              </div>
+            </div>
         </div>
       </div>
     </div>

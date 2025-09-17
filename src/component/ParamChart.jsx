@@ -1,10 +1,17 @@
-import React, { useEffect, useRef } from "react";
-import { Chart } from "chart.js";
 import { Bar } from "react-chartjs-2";
+import {
+  Chart as ChartJS,
+  CategoryScale,
+  LinearScale,
+  BarElement,
+  Title,
+  Tooltip,
+  Legend,
+} from "chart.js";
+
+ChartJS.register(CategoryScale, LinearScale, BarElement, Title, Tooltip, Legend);
 
 export default function ParamChart({ title, labels, values, color }) {
-  const chartRef = useRef(null);
-
   const data = {
     labels,
     datasets: [
@@ -25,17 +32,19 @@ export default function ParamChart({ title, labels, values, color }) {
     },
     scales: {
       x: { beginAtZero: true },
+      y: {
+        ticks: {
+          align: "start",          // align text to start
+          maxRotation: 0,          // prevent rotation
+          minRotation: 0,
+          callback: function(value) {
+            // show the start of the label
+            return this.getLabelForValue(value);
+          },
+        },
+      },
     },
   };
-
-  // cleanup on unmount
-  useEffect(() => {
-    return () => {
-      if (chartRef.current) {
-        chartRef.current.destroy();
-      }
-    };
-  }, []);
 
   return (
     <div className="w-full md:w-1/3 p-3">
@@ -43,7 +52,7 @@ export default function ParamChart({ title, labels, values, color }) {
         <h2 className="text-lg font-bold text-gray-800 mb-3 text-center">
           {title}
         </h2>
-        <Bar ref={chartRef} data={data} options={options} />
+        <Bar data={data} options={options} className="text-start"/>
       </div>
     </div>
   );

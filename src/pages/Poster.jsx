@@ -1,6 +1,6 @@
 import GreenBar from "../component/GreenBar";
 import Sidebar from "../component/SideBar";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import html2canvas from "html2canvas";
 import { useRef } from "react";
 import { useFactoryData } from "../context/FactoryDataContext";
@@ -9,7 +9,15 @@ import { saveAs } from "file-saver";
 import ExcelJS from "exceljs";
 
 export default function Poster() {
+  //   useEffect(() => {
+  //   // reload every 5 minutes (300000 ms)
+  //     window.location.reload();
+  //   // cleanup on unmount
+  //   return () => clearInterval(interval);
+  // }, []);
   const { data, loading } = useFactoryData();
+    const tableRef = useRef();
+    const [currentPage, setCurrentPage] = useState(1);
 
   if (loading) {
     // shorter duration, smooth cycling
@@ -23,179 +31,198 @@ export default function Poster() {
 
   // For downloading table as image
 
-  const tableRef = useRef();
-function downloadTableImage() {
-  if (!tableRef.current) return;
+  function downloadTableImage() {
+    if (!tableRef.current) return;
 
-  const targetWidth = 1588;
-  const scale = 2;
+    const targetWidth = 1588;
+    const scale = 2;
 
-  const clonedNode = tableRef.current.cloneNode(true);
+    const clonedNode = tableRef.current.cloneNode(true);
 
-  // Basic styling for the cloned container
-  clonedNode.style.position = "absolute";
-  clonedNode.style.left = "-9999px";
-  clonedNode.style.width = targetWidth + "px";
-  clonedNode.style.transform = "scale(1)";
-  clonedNode.style.transformOrigin = "top left";
-  clonedNode.style.fontFamily = "'Noto Sans Khmer', sans-serif";
+    // Basic styling for the cloned container
+    clonedNode.style.position = "absolute";
+    clonedNode.style.left = "-9999px";
+    clonedNode.style.width = targetWidth + "px";
+    clonedNode.style.transform = "scale(1)";
+    clonedNode.style.transformOrigin = "top left";
+    clonedNode.style.fontFamily = "'Noto Sans Khmer', sans-serif";
 
-  // Style all tables
-  clonedNode.querySelectorAll("table").forEach(el => {
-    el.style.width = "100%";
-    el.style.border = "1px solid #d1d5db";
-    el.style.fontSize = "0.875rem";
-    el.style.textAlign = "center";
-    el.style.borderCollapse = "collapse";
-  });
-
-  // Style table headers
-  clonedNode.querySelectorAll("th").forEach(el => {
-    el.style.fontFamily = "'Noto Sans Khmer', sans-serif";
-    el.style.fontSize = "1.125rem";
-    el.style.lineHeight = "1.75rem";
-    el.style.textAlign = "center";
-    el.style.verticalAlign = "middle";
-    el.style.fontWeight = "bold";
-    el.style.border = "1px solid #d1d5db";
-    el.style.backgroundColor = "#bfdbfe";
-    el.style.padding = "8px";
-    el.style.display = "table-cell";
-  });
-
-  // Style table cells
-  clonedNode.querySelectorAll("td").forEach(el => {
-    el.style.fontFamily = "'Noto Sans Khmer', sans-serif";
-    el.style.fontSize = "1.125rem";
-    el.style.lineHeight = "1.4";
-    el.style.textAlign = "center";
-    el.style.verticalAlign = "middle";
-    el.style.border = "1px solid #d1d5db";
-    el.style.padding = "12px 8px";
-    el.style.display = "table-cell";
-    el.style.height = "50px"; // keeps text vertically centered
-  });
-
-  // Style titles
-  clonedNode.querySelectorAll("h1").forEach(el => {
-    el.style.fontFamily = "'Noto Sans Khmer', sans-serif";
-    el.style.fontSize = "1.5rem";
-    el.style.lineHeight = "2rem";
-    el.style.textAlign = "center";
-    el.style.fontWeight = "bold";
-    el.style.margin = "16px 0";
-  });
-
-  // Style summary container
-  clonedNode.querySelectorAll("div").forEach(el => {
-    if (el.querySelector(".summary_span")) {
-      el.style.display = "flex";
-      el.style.justifyContent = "space-around";
-      el.style.alignItems = "center"; // ✅ fixed
+    // Style all tables
+    clonedNode.querySelectorAll("table").forEach(el => {
       el.style.width = "100%";
-      el.style.padding = "16px";
-      el.style.gap = "16px";
-    }
-
-    if (el.classList && el.classList.contains("text-center")) {
-      el.style.display = "flex";
-      el.style.flexDirection = "column";
-      el.style.alignItems = "center";
-      el.style.justifyContent = "center"; // ✅ changed to center
+      el.style.border = "1px solid #d1d5db";
+      el.style.fontSize = "0.875rem";
       el.style.textAlign = "center";
-      el.style.minWidth = "150px";
-    }
-  });
-
-  // Style summary spans
-  clonedNode.querySelectorAll(".summary_span").forEach(el => {
-    el.style.fontFamily = "'Noto Sans Khmer', sans-serif";
-    el.style.fontSize = "1.125rem";
-    el.style.fontWeight = "bold";
-    el.style.textAlign = "center";
-    el.style.display = "flex"; // ✅ force flex
-    el.style.justifyContent = "center";
-    el.style.alignItems = "center";
-    el.style.padding = "10px 12px";
-    el.style.borderRadius = "6px";
-    el.style.minWidth = "50px";
-    el.style.height = "40px";
-    el.style.lineHeight = "1";
-    el.style.marginBottom = "8px";
-
-    if (el.classList.contains("bg-green-600")) {
-      el.style.backgroundColor = "#16a34a";
-      el.style.color = "white";
-    } else if (el.classList.contains("bg-yellow-400")) {
-      el.style.backgroundColor = "#facc15";
-      el.style.color = "black";
-    } else if (el.classList.contains("bg-red-600")) {
-      el.style.backgroundColor = "#dc2626";
-      el.style.color = "white";
-    } else if (el.classList.contains("bg-gray-300")) {
-      el.style.backgroundColor = "#d1d5db";
-      el.style.color = "black";
-    }
-  });
-
-  // Style paragraphs under summary spans
-  clonedNode.querySelectorAll("p").forEach(el => {
-    if (el.parentElement && el.parentElement.querySelector(".summary_span")) {
-      el.style.fontFamily = "'Noto Sans Khmer', sans-serif";
-      el.style.fontSize = "1rem";
-      el.style.textAlign = "center";
-      el.style.margin = "8px 0 0 0";
-      el.style.lineHeight = "1.4";
-      el.style.fontWeight = "bold";
-      el.style.maxWidth = "180px";
-      el.style.wordWrap = "break-word";
-    } else {
-      el.style.fontFamily = "'Noto Sans Khmer', sans-serif";
-      el.style.textAlign = "center";
-      el.style.margin = "8px 0";
-    }
-  });
-
-  // Style "standards" span
-  clonedNode.querySelectorAll("span").forEach(el => {
-    if (el.textContent && el.textContent.includes("កម្រិតស្តង់ដារ")) {
-      el.style.fontFamily = "'Noto Sans Khmer', sans-serif";
-      el.style.fontSize = "1rem";
-      el.style.textAlign = "center";
-      el.style.padding = "8px 12px";
-      el.style.borderRadius = "6px";
-      el.style.backgroundColor = "#22c55e";
-      el.style.color = "white";
-      el.style.display = "flex";
-      el.style.alignItems = "center";
-      el.style.justifyContent = "center";
-      el.style.minWidth = "240px";
-      el.style.height = "40px";
-    }
-  });
-
-  document.body.appendChild(clonedNode);
-
-  document.fonts.ready.then(() => {
-    html2canvas(clonedNode, {
-      ignoreElements: el => el.classList.contains("no-capture"),
-      useCORS: true,
-      logging: false,
-      backgroundColor: "#ffffff",
-      scale: scale,
-      width: targetWidth,
-      scrollX: 0,
-      scrollY: -window.scrollY,
-    }).then(canvas => {
-      const link = document.createElement("a");
-      link.download = `report_page_${currentPage}.png`;
-      link.href = canvas.toDataURL("image/png");
-      link.click();
-
-      document.body.removeChild(clonedNode);
+      el.style.borderCollapse = "collapse";
     });
-  });
-}
+
+    // Style table headers
+    clonedNode.querySelectorAll("th").forEach(el => {
+      el.style.fontFamily = "'Noto Sans Khmer', sans-serif";
+      el.style.fontSize = "1.125rem";
+      el.style.lineHeight = "1.75rem";
+      el.style.textAlign = "center";
+      el.style.verticalAlign = "middle";
+      el.style.fontWeight = "bold";
+      el.style.border = "1px solid #d1d5db";
+      el.style.backgroundColor = "#bfdbfe";
+      el.style.padding = "8px";
+      el.style.display = "table-cell";
+    });
+
+    // Style table cells
+    clonedNode.querySelectorAll("td").forEach(el => {
+      el.style.fontFamily = "'Noto Sans Khmer', sans-serif";
+      el.style.fontSize = "1.125rem";
+      el.style.lineHeight = "1.4";
+      el.style.textAlign = "center";
+      el.style.verticalAlign = "middle";
+      el.style.border = "1px solid #d1d5db";
+      el.style.padding = "12px 8px";
+      el.style.display = "table-cell";
+      el.style.height = "50px"; // keeps text vertically centered
+    });
+
+    // Style titles
+    clonedNode.querySelectorAll("h1").forEach(el => {
+      el.style.fontFamily = "'Noto Sans Khmer', sans-serif";
+      el.style.fontSize = "1.5rem";
+      el.style.lineHeight = "2rem";
+      el.style.textAlign = "center";
+      el.style.fontWeight = "bold";
+      el.style.margin = "16px 0";
+    });
+
+    // Style summary container
+    clonedNode.querySelectorAll("div").forEach(el => {
+      if (el.querySelector(".summary_span")) {
+        el.style.display = "flex";
+        el.style.justifyContent = "space-around";
+        el.style.alignItems = "center";
+        el.style.width = "100%";
+        el.style.padding = "24px";
+        el.style.gap = "24px";
+      }
+
+      if (el.classList && el.classList.contains("text-center")) {
+        el.style.display = "flex";
+        el.style.flexDirection = "column";
+        el.style.alignItems = "center";
+        el.style.justifyContent = "center";
+        el.style.textAlign = "center";
+        el.style.minWidth = "160px";
+      }
+
+      // Style the conclusion header container for top-left alignment
+      if (el.querySelector("span") && el.querySelector("span").textContent.includes("សេចក្តីសន្និដ្ឋាន")) {
+        el.style.display = "block";
+        el.style.textAlign = "left";
+        el.style.paddingLeft = "16px";
+        const conclusionSpan = el.querySelector("span");
+        if (conclusionSpan) {
+          conclusionSpan.style.display = "inline-block";
+          conclusionSpan.style.textAlign = "left";
+          conclusionSpan.style.margin = "0";
+        }
+      }
+
+      // Style the standards container to prevent overlap
+      const standardsSpan = el.querySelector("span");
+      if (standardsSpan && standardsSpan.textContent && standardsSpan.textContent.includes("កម្រិតស្តង់ដារ")) {
+        el.style.minWidth = "280px";
+      }
+    });
+
+    // Style summary spans
+    clonedNode.querySelectorAll(".summary_span").forEach(el => {
+      el.style.fontFamily = "'Noto Sans Khmer', sans-serif";
+      el.style.fontSize = "1.125rem";
+      el.style.fontWeight = "bold";
+      el.style.textAlign = "center";
+      el.style.display = "flex";
+      el.style.justifyContent = "center";
+      el.style.alignItems = "center";
+      el.style.padding = "10px 12px";
+      el.style.borderRadius = "6px";
+      el.style.minWidth = "50px";
+      el.style.height = "40px";
+      el.style.lineHeight = "1";
+      el.style.marginBottom = "8px";
+
+      if (el.classList.contains("bg-green-600")) {
+        el.style.backgroundColor = "#16a34a";
+        el.style.color = "white";
+      } else if (el.classList.contains("bg-yellow-400")) {
+        el.style.backgroundColor = "#facc15";
+        el.style.color = "black";
+      } else if (el.classList.contains("bg-red-600")) {
+        el.style.backgroundColor = "#dc2626";
+        el.style.color = "white";
+      } else if (el.classList.contains("bg-gray-300")) {
+        el.style.backgroundColor = "#d1d5db";
+        el.style.color = "black";
+      }
+    });
+
+    // Style paragraphs under summary spans
+    clonedNode.querySelectorAll("p").forEach(el => {
+      if (el.parentElement && el.parentElement.querySelector(".summary_span")) {
+        el.style.fontFamily = "'Noto Sans Khmer', sans-serif";
+        el.style.fontSize = "1rem";
+        el.style.textAlign = "center";
+        el.style.margin = "8px 0 0 0";
+        el.style.lineHeight = "1.4";
+        el.style.fontWeight = "bold";
+        el.style.maxWidth = "180px";
+        el.style.wordWrap = "break-word";
+      } else {
+        el.style.fontFamily = "'Noto Sans Khmer', sans-serif";
+        el.style.textAlign = "center";
+        el.style.margin = "8px 0";
+      }
+    });
+
+    // Style "standards" span
+    clonedNode.querySelectorAll("span").forEach(el => {
+      if (el.textContent && el.textContent.includes("កម្រិតស្តង់ដារ")) {
+        el.style.fontFamily = "'Noto Sans Khmer', sans-serif";
+        el.style.fontSize = "1rem";
+        el.style.textAlign = "center";
+        el.style.padding = "8px 12px";
+        el.style.borderRadius = "6px";
+        el.style.backgroundColor = "#22c55e";
+        el.style.color = "white";
+        el.style.display = "flex";
+        el.style.alignItems = "center";
+        el.style.justifyContent = "center";
+        el.style.minWidth = "240px";
+        el.style.height = "40px";
+      }
+    });
+
+    document.body.appendChild(clonedNode);
+
+    document.fonts.ready.then(() => {
+      html2canvas(clonedNode, {
+        ignoreElements: el => el.classList.contains("no-capture"),
+        useCORS: true,
+        logging: false,
+        backgroundColor: "#ffffff",
+        scale: scale,
+        width: targetWidth,
+        scrollX: 0,
+        scrollY: -window.scrollY,
+      }).then(canvas => {
+        const link = document.createElement("a");
+        link.download = `report_page_${currentPage}.png`;
+        link.href = canvas.toDataURL("image/png");
+        link.click();
+
+        document.body.removeChild(clonedNode);
+      });
+    });
+  }
+
 
 
   // function download report as xls
@@ -215,7 +242,6 @@ function downloadTableImage() {
     return `${day} ខែ ${month} ឆ្នាំ ${year}`;
   }
 
-  const [currentPage, setCurrentPage] = useState(1);
   const rowsPerPage = 24;
   const totalPages = Math.ceil(data.length / rowsPerPage);
 
@@ -290,44 +316,7 @@ function downloadTableImage() {
     return { text: "អនុលោមស្តង់ដារ", bgClass: "bg-green-600 text-white font-bold" };
   }
 
-  async function downloadExcel() {
-    const workbook = new ExcelJS.Workbook();
-    const worksheet = workbook.addWorksheet("Report");
 
-    // Add header row
-    worksheet.addRow([
-      "ល.រ",
-      "ឈ្មោះក្រុមហ៊ុន",
-      "ទីតាំង",
-      "ប្រភេទក្រុមហ៊ុន",
-      "pH",
-      "COD (mg/l)",
-      "TSS (mg/l)",
-      "ស្ថានភាព សំណល់រាវ",
-    ]);
-
-    // Add data rows
-    currentData.forEach((row, ind) => {
-      const statusInfo = getStatus(row.avg_parame);
-      worksheet.addRow([
-        (currentPage - 1) * rowsPerPage + ind + 1,
-        row.station_info?.Company || "-",
-        row.station_info?.Province || "-",
-        row.station_info?.Type || "-",
-        row.avg_parame?.ph != null ? row.avg_parame.ph.toFixed(2) : "-",
-        row.avg_parame?.cod != null ? row.avg_parame.cod.toFixed(2) : "-",
-        row.avg_parame?.ss != null ? row.avg_parame.ss.toFixed(2) : "-",
-        statusInfo.text,
-      ]);
-    });
-
-    // Generate file
-    const buffer = await workbook.xlsx.writeBuffer();
-    const blob = new Blob([buffer], {
-      type: "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
-    });
-    saveAs(blob, `report_page_${currentPage}.xlsx`);
-  }
 
   // Excel version with bold styling for threshold-exceeding values
 

@@ -21,6 +21,7 @@ export default function Sidebar() {
           <NavLink
             key={item.path}
             to={item.path}
+            state={{ reload: item.path === "/poster" }}
             className={({ isActive }) =>
               `w-full flex flex-col items-center justify-center py-3 text-center transition
                ${isActive ? "bg-green-700 text-white" : "bg-gray-600 text-black hover:bg-green-100"}`
