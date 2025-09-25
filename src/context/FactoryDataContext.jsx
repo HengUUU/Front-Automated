@@ -1,5 +1,4 @@
 import React, { createContext, useContext, useEffect, useState } from "react";
-import factoriesKh from "../utils/real_factory_info.json";
 import GreenLoadingBar from "../component/GreenLoading";
 
 const FactoryDataContext = createContext();
@@ -15,36 +14,62 @@ export function FactoryDataProvider({ children }) {
   const apiUrl = import.meta.env.VITE_API_URL;
 
   useEffect(() => {
-    fetch(`${apiUrl}/report`, {
-      headers: {
-        Authorization: `Bearer ${localStorage.getItem("token")}` // pass token
-      }
-    })
-      .then(res => res.json())
-      .then(json => {
-        const mergedData = json.data.map(factory => {
-        // First try to find by Id
-        let khInfo = factoriesKh.find(kh => kh.Id === factory.device_ids);
+    async function fetchData() {
+      try {
+        const token = localStorage.getItem("token");
 
-        // If no match by Id, try match by name (case-insensitive)
-        if (!khInfo && factory.station_info?.Company) {
-          khInfo = factoriesKh.find(
-            kh => kh.name.toLowerCase() === factory.station_info.Company.toLowerCase()
+        // fetch reports and factories in parallel
+        const [reportRes, factoryRes] = await Promise.all([
+          fetch(`${apiUrl}/report`, {
+            headers: { Authorization: `Bearer ${token}` }
+          }),
+          fetch(`${apiUrl}/factories`, {
+            headers: { Authorization: `Bearer ${token}` }
+          })
+        ]);
+
+        const reportJson = await reportRes.json();
+        const factoriesJson = await factoryRes.json();
+
+        // merge reports with factories using same fallback logic
+        const mergedData = reportJson.data.map(report => {
+          // First try match by Id
+          let matchedFactory = factoriesJson.find(
+            f => f.Id === report.device_ids
           );
-        }
 
-        return {
-          ...factory,
-          station_info: khInfo
-            ? { Company: khInfo.name, Province: khInfo.location, Type: khInfo.business }
-            : factory.station_info // keep existing if no match
-        };
-      });
+          // If no match by Id, try match by name (case-insensitive)
+          if (!matchedFactory && report.station_info?.Company) {
+            matchedFactory = factoriesJson.find(
+              f =>
+                f.name?.toLowerCase() ===
+                report.station_info.Company.toLowerCase()
+            );
+          }
+
+          return {
+            ...report,
+            station_info: matchedFactory
+              ? {
+                  Company: matchedFactory.name,
+                  Province: matchedFactory.location,
+                  Type: matchedFactory.business,
+                  LatLong: matchedFactory.mapLatLong
+                }
+              : report.station_info // keep original if no match
+          };
+        });
+
         setData(mergedData);
+      } catch (err) {
+        console.error("Error fetching reports/factories:", err);
+      } finally {
         setLoading(false);
-      })
-      .catch(() => setLoading(false));
-  }, []);
+      }
+    }
+
+    fetchData();
+  }, [apiUrl]);
 
   if (loading) {
     return <GreenLoadingBar />;
@@ -56,3 +81,19 @@ export function FactoryDataProvider({ children }) {
     </FactoryDataContext.Provider>
   );
 }
+
+
+
+
+        // const mergedData = json.data.map(factory => {
+        // // First try to find by Id
+        // let khInfo = factoriesKh.find(kh => kh.Id === factory.device_ids);
+
+        // // If no match by Id, try match by name (case-insensitive)
+        // if (!khInfo && factory.station_info?.Company) {
+        //   khInfo = factoriesKh.find(
+        //     kh => kh.name.toLowerCase() === factory.station_info.Company.toLowerCase()
+        //   );
+        // }
+
+  

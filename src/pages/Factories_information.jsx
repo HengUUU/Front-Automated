@@ -197,9 +197,9 @@ export default function FactoriesPage() {
                 <thead className="bg-gray-200">
                 <tr>
                     <th className="border p-2">ID</th>
-                    <th className="border p-2">Name</th>
-                    <th className="border p-2">Location</th>
-                    <th className="border p-2">Business</th>
+                    <th className="border p-2">ឈ្មោះ</th>
+                    <th className="border p-2">ទីតាំង</th>
+                    <th className="border p-2">ប្រភេទក្រុមហ៊៊ុន</th>
                     <th className="border p-2">Latitude</th>
                     <th className="border p-2">Longitude</th>
                     <th className="border p-2">Actions</th>
@@ -260,17 +260,17 @@ export default function FactoriesPage() {
                     name="business"
                     value={selectedFactory.business || ""}
                     onChange={handleInputChange}
-                    placeholder="Business (optional)"
+                    placeholder="ប្រភេទក្រុមហ៊៊ុន (optional)"
                     className="border p-2"
                 />
                 <input
-                type="text"
-                name="location"
-                value={selectedFactory.location || ""}
-                onChange={handleInputChange}
-                placeholder="Location (optional)"
-                className="border p-2"
-                />
+            type="text"
+            name="location"
+            value={selectedFactory.location || ""}
+            onChange={handleInputChange}
+            placeholder="ទីតាំង (optional)"
+            className="border p-2"
+            />
                 <input
                     type="text"
                     value={updateLat}
@@ -330,7 +330,7 @@ export default function FactoriesPage() {
             name="business"
             value={newFactory.business}
             onChange={handleNewInputChange}
-            placeholder="Business (optional)"
+            placeholder="ប្រភេទក្រុមហ៊៊ុន (optional)"
             className="border p-2"
             />
             <input
@@ -338,7 +338,7 @@ export default function FactoriesPage() {
             name="location"
             value={newFactory.location}
             onChange={handleNewInputChange}
-            placeholder="Location (optional)"
+            placeholder="ទីតាំង (optional)"
             className="border p-2"
             />
             <input
