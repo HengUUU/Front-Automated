@@ -84,16 +84,4 @@ export function FactoryDataProvider({ children }) {
 
 
 
-
-        // const mergedData = json.data.map(factory => {
-        // // First try to find by Id
-        // let khInfo = factoriesKh.find(kh => kh.Id === factory.device_ids);
-
-        // // If no match by Id, try match by name (case-insensitive)
-        // if (!khInfo && factory.station_info?.Company) {
-        //   khInfo = factoriesKh.find(
-        //     kh => kh.name.toLowerCase() === factory.station_info.Company.toLowerCase()
-        //   );
-        // }
-
   
