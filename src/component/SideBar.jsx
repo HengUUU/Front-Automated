@@ -9,6 +9,7 @@ export default function Sidebar() {
     { path: "/poster", icon: <FaFileAlt size={28} />, label: "Automated RP" },
     { path: "/graph", icon: <FaMapMarkedAlt size={28} />, label: "Map" },
     {path: "/plot", icon: <VscGraph size={28} />, label: "Plot" },
+    {path: "/factories", label:"Factory"}
   ];
 
   const bottomItem = { path: "/login", icon: <TbLogout size={28} />, label: "Log Out" };
