@@ -7,7 +7,7 @@ export default function GreenLoadingBar() {
       <div className="w-80 h-6 bg-green-100 rounded-full overflow-hidden border border-green-400 relative">
         <div className="absolute h-full w-1/3 bg-gradient-to-r from-transparent via-green-500 to-transparent animate-slide" />
       </div>
-      <style jsx>{`
+      <style>{`
         @keyframes slide {
           0% { left: -33%; }
           100% { left: 100%; }
@@ -15,7 +15,7 @@ export default function GreenLoadingBar() {
         .animate-slide {
           animation: slide 2s linear infinite;
         }
-      `}</style>
+     `}</style>
     </div>
   );
 }

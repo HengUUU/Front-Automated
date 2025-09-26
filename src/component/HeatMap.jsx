@@ -7,8 +7,9 @@ ChartJS.register(MatrixController, MatrixElement, LinearScale, CategoryScale, To
 export default function HeatmapChart({ report }) {
   // Filter factories with WCI > 0 and sort descending
   const filteredData = report.data
-    .filter(f => f.WCI > 0)
-    .sort((a, b) => b.WCI - a.WCI);
+  .filter(f => f.WCI != null)       // keep only entries with WCI
+  .sort((a, b) => a.WCI - b.WCI)    // sort ascending → lowest WCI first
+  .slice(0, 10);
 
   const factories = filteredData.map(f => f.station_info.Company);
   const parameters = ["pH", "SS", "COD"];
