@@ -20,7 +20,7 @@ export function FactoryDataProvider({ children }) {
 
         // fetch reports and factories in parallel
         const [reportRes, factoryRes] = await Promise.all([
-          fetch(`${apiUrl}/report`, {
+          fetch(`${apiUrl}/report-wci`, {
             headers: { Authorization: `Bearer ${token}` }
           }),
           fetch(`${apiUrl}/factories`, {

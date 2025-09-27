@@ -8,8 +8,8 @@ export default function HeatmapChart({ report }) {
   // Filter factories with WCI > 0 and sort descending
   const filteredData = report.data
   .filter(f => f.WCI != null)       // keep only entries with WCI
-  .sort((a, b) => a.WCI - b.WCI)    // sort ascending → lowest WCI first
-  .slice(0, 10);
+  .sort((a, b) => a.WCI - b.WCI)    // ascending → lowest WCI (worst) first
+  .slice(0, 10);   
 
   const factories = filteredData.map(f => f.station_info.Company);
   const parameters = ["pH", "SS", "COD"];
@@ -78,28 +78,30 @@ export default function HeatmapChart({ report }) {
         offset: true,
       },
       y: {
-        type: "category",
-        labels: factories.slice(0, 10), // Limit to 10 factories
-        title: {
-          display: true,
-          text: "Factories",
-          font: { size: 11 },
-          color: "#374151",
-          padding: 4,
-        },
-        ticks: {
-          font: { size: 9 },
-          color: "#374151",
-          autoSkip: false,
-          callback: (value, index) => {
-            const maxLength = 15; // Adjust based on space
-            const label = factories[index];
-            return label.length > maxLength ? `${label.substring(0, maxLength)}...` : label;
-          },
-        },
-        grid: { display: false },
-        offset: true,
-      },
+  type: "category",
+  labels: factories, // sorted ascending: worst first, best last
+  reverse: false,    // keep default (bottom = worst, top = best)
+  title: {
+    display: true,
+    text: "Factories",
+    font: { size: 11 },
+    color: "#374151",
+    padding: 4,
+  },
+  ticks: {
+    font: { size: 9 },
+    color: "#374151",
+    autoSkip: false,
+    callback: (value, index) => {
+      const maxLength = 15;
+      const label = factories[index];
+      return label.length > maxLength ? `${label.substring(0, maxLength)}...` : label;
+    },
+  },
+  grid: { display: false },
+  offset: true,
+},
+
     },
     layout: {
       padding: 5, // Maximize chart area
