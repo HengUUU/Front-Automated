@@ -64,49 +64,64 @@ export default function Home() {
                   <div>
                     <h3 className="text-2xl font-semibold mb-4">Dangerous Factory Heatmap</h3>
                     <p>
-                      Identify high-risk factories with a heatmap, highlighting areas with potential environmental hazards based on water quality data.
+                      Identify high-risk factories with a heatmap with WCI, highlighting areas with potential environmental hazards based on water quality data.
                     </p>
                   </div>
                 </div>
               </section>
 
-              {/* WCI Section */}
-              <section className="py-16 px-8 bg-black bg-opacity-40">
-                <h2 className="text-4xl font-bold mb-8 text-left">
-                  🌊 How WCI Works
-                </h2>
-                <div className="max-w-3xl space-y-6 text-left">
-                  <p>
-                    The <strong>Water Criticality Index (WCI)</strong> shows how risky a factory’s water discharge is for the environment. 
-                    It is based on three key water quality parameters:
-                  </p>
-                  <ul className="list-disc pl-6 space-y-2">
-                    <li><strong>pH</strong> — safe if between 5.5 and 9.</li>
-                    <li><strong>COD (Chemical Oxygen Demand)</strong> — safe if less than 120.</li>
-                    <li><strong>SS (Suspended Solids)</strong> — safe if less than 100.</li>
-                  </ul>
+{/* CCME WQI Section */}
+{/* CCME WQI Section */}
+<section className="py-16 px-8">
+  <div className="max-w-3xl bg-black bg-opacity-40 p-8 rounded-lg space-y-6 text-left">
+    <h2 className="text-4xl font-bold mb-8">
+      🌊 How CCME WQI Works
+    </h2>
+    <p>
+      The <strong>Canadian Council of Ministers of the Environment Water Quality Index (CCME WQI)</strong> 
+      is a method used to evaluate the overall quality of water. 
+      It is based on three main factors:
+    </p>
+    <ul className="list-disc pl-6 space-y-2">
+      <li><strong>F1 (Scope)</strong> — the percentage of parameters that fail at least once.</li>
+      <li><strong>F2 (Frequency)</strong> — the percentage of individual tests that fail.</li>
+      <li><strong>F3 (Amplitude)</strong> — the extent by which failed tests exceed the guidelines.</li>
+    </ul>
 
-                  <p>
-                    Each parameter is scored between <strong>0 (safe)</strong> and <strong>1 (unsafe)</strong>.  
-                    Then, the scores are averaged and scaled into a percentage.
-                  </p>
+    <p>
+      The final WQI score combines these three factors to produce a value between 0 and 100.
+    </p>
 
-                  <div className="bg-gray-800 p-4 rounded-lg shadow-md text-center">
-                    <p className="text-lg">
-                      <strong>Formula:</strong>
-                    </p>
-                    <p className="mt-2 font-mono">
-                      WCI = ((pH_score + COD_score + SS_score) / 3) × 100
-                    </p>
-                  </div>
+    <div className="bg-gray-800 p-4 rounded-lg shadow-md text-center">
+      <p className="text-lg">
+        <strong>Formula:</strong>
+      </p>
+      <p className="mt-4 font-mono text-sm leading-relaxed text-left">
+        F1 = (Number of failed parameters ÷ Total parameters) × 100 <br />
+        F2 = (Number of failed tests ÷ Total tests) × 100 <br />
+        F3 = nse ÷ (0.01 × nse + 0.01), &nbsp; where &nbsp; 
+        nse = (Σ excursions ÷ Total tests) <br /><br />
+        WQI = 100 − [ √(F1² + F2² + F3²) ÷ 1.732 ]
+      </p>
+    </div>
 
-                  <p>
-                    - If the result is <strong>0</strong>, the factory is fully safe. <br />
-                    - If the result is <strong>100</strong>, the factory is at maximum environmental risk. <br />
-                    Most factories fall somewhere in between.
-                  </p>
-                </div>
-              </section>
+    <p>
+      - If the result is close to <strong>100</strong>, water quality is excellent. <br />
+      - If the result is close to <strong>0</strong>, water quality is poor. <br />
+      Most real-world values fall between these extremes.
+    </p>
+
+    <p className="mt-4 text-sm">
+      <strong>Resource:</strong> <a href="https://www.gov.nl.ca/ecc/files/waterres-reports-hydrogeology-easternnl-appendix-v-water-quality-index-calculation.pdf?utm_source=chatgpt.com" target="_blank" className="underline text-blue-400">
+        CCME Water Quality Index Calculation Guide
+      </a>
+    </p>
+  </div>
+</section>
+
+
+
+
 
             </div>
           </div>

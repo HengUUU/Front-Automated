@@ -7,21 +7,38 @@ import { useFactoryData } from "../context/FactoryDataContext";
 import GreenLoadingBar from "../component/GreenLoading";
 import { saveAs } from "file-saver";
 import ExcelJS from "exceljs";
+import { useNavigate } from "react-router-dom";
 
 export default function Poster() {
-  //   useEffect(() => {
-  //   // reload every 5 minutes (300000 ms)
-  //     window.location.reload();
-  //   // cleanup on unmount
-  //   return () => clearInterval(interval);
-  // }, []);
   const { data, loading } = useFactoryData();
-    const tableRef = useRef();
-    const [currentPage, setCurrentPage] = useState(1);
+  const tableRef = useRef();
+  const [currentPage, setCurrentPage] = useState(1);
+  const navigate = useNavigate(); // For redirecting to login
+
+  // Check for token and redirect to login if missing
+  useEffect(() => {
+    const token = localStorage.getItem("token");
+    if (!token) {
+      navigate("/login"); // Redirect to login page
+    }
+  }, [navigate]);
 
   if (loading) {
-    // shorter duration, smooth cycling
     return <GreenLoadingBar />;
+  }
+
+  if (!data || data.length === 0) {
+    return (
+      <div className="text-center text-red-600 p-5">
+        No data available.
+        <button
+          onClick={() => window.location.reload()} // Manual retry
+          className="ml-4 px-3 py-2 bg-green-600 text-white rounded hover:bg-green-700"
+        >
+          Retry
+        </button>
+      </div>
+    );
   }
 
   function toKhmerNumber(number) {
