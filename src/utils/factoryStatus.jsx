@@ -8,9 +8,12 @@ export function categorizeFactories(data) {
     const { avg_parame } = factory;
     const mapLatLong = factoriesKh.find(kh => kh.Id === factory.device_ids)?.mapLatLong;
 
-    if (!avg_parame || avg_parame.ph == null || avg_parame.cod == null || avg_parame.ss == null ||
-      (avg_parame.ph === 0 && avg_parame.cod === 0 && avg_parame.ss === 0)) {
+    if (!avg_parame || avg_parame.ph == null || avg_parame.cod == null || avg_parame.ss == null) {
       gray.push({ ...factory, mapLatLong });
+      return;
+    }
+    if (avg_parame.ph === 0 && avg_parame.cod === 0 && avg_parame.ss === 0) {
+      red.push({ ...factory, mapLatLong });
       return;
     }
 
